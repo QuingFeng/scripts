@@ -23,7 +23,9 @@ command_exists () {
         hash "$1" 2>/dev/null || { echo >&2 "Installing $1 ..."; apt-get install "$1"; }
 	elif [[ "$OSTYPE" == "darwin"* ]]; then
 		# Install brew if its not installed already.
-		if [ !hash brew &> /dev/null ]; then
+		which -s brew
+		if [[ $? != 0 ]] ; then
+			echo "Brew not installed, installing..."
 			/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 		fi
 		hash "$1" 2>/dev/null || { echo >&2 "Installing $1 ..."; brew install "$1"; }
