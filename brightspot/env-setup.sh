@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# run from remote like this:
-# curl -s https://raw.githubusercontent.com/stephen-lane/scripts/master/brightspot/env-setup.sh | bash /dev/stdin walmart slane
-
 PROJECT="$1"
 LDAP_USER="$2"
 
@@ -122,7 +119,7 @@ mkdir Workspace
 
 echo "Start tomcat.."
 ${TOMCAT_DIR}/bin/startup.sh
-# less +F ${TOMCAT_DIR}/logs/catalina.out
+less +F ${TOMCAT_DIR}/logs/catalina.out
 
 
 
