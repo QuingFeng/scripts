@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# run from remote like this:
+# curl -s https://raw.githubusercontent.com/stephen-lane/scripts/master/brightspot/env-setup.sh | bash /dev/stdin walmart slane
+
 PROJECT="$1"
 LDAP_USER="$2"
 
@@ -113,6 +116,9 @@ ln -sf "../../${PROJECT}/${target_dir}" "${TOMCAT_DIR}/webapps/ROOT"
 echo "Clean up.."
 rm -f ${TOMCAT_DIR}${TOMCAT_EXT}
 rm -f ${SOLR_DIR}${SOLR_EXT}
+
+echo "Create new eclipse workspace.."
+mkdir Workspace
 
 echo "Start tomcat.."
 ${TOMCAT_DIR}/bin/startup.sh
