@@ -11,8 +11,8 @@ TOMCAT_PATH="http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.32/bin/"
 TOMCAT_DIR="apache-tomcat-8.0.32"
 TOMCAT_EXT=".tar.gz"
 
-SOLR_PATH="http://archive.apache.org/dist/lucene/solr/3.6.1/"
-SOLR_DIR="apache-solr-3.6.1"
+SOLR_PATH="http://archive.apache.org/dist/lucene/solr/4.8.1/"
+SOLR_DIR="solr-4.8.1"
 SOLR_EXT=".tgz"
 
 CODE="https://github.com/perfectsense/${PROJECT}.git"
@@ -53,14 +53,14 @@ tar -xvzf ${SOLR_DIR}${SOLR_EXT}
 
 echo "Setting up solr..."
 cp -R "${SOLR_DIR}/example/solr" "${TOMCAT_DIR}/"
-cp -v "${SOLR_DIR}/example/webapps/solr.war" "${TOMCAT_DIR}/webapps/"
+cp -rv "${SOLR_DIR}/example/lib/ext/"* "${TOMCAT_DIR}/lib"
+cp "${SOLR_DIR}/dist/${SOLR_DIR}.war" "${TOMCAT_DIR}/webapps/solr.war"
 
 echo "Download and install Solr config"
-wget https://raw.githubusercontent.com/perfectsense/dari/release/3.2/etc/solr/changes/config-4.xml
-# wget https://raw.githubusercontent.com/perfectsense/dari/master/etc/solr/config-5.xml
+wget https://raw.githubusercontent.com/perfectsense/dari/master/etc/solr/config-5.xml
 wget https://raw.githubusercontent.com/perfectsense/dari/master/etc/solr/schema-12.xml
-mv config-4.xml "${TOMCAT_DIR}/solr/conf/solrconfig.xml"
-mv schema-12.xml "${TOMCAT_DIR}/solr/conf/schema.xml"
+mv config-5.xml "${TOMCAT_DIR}/solr/collection1/conf/solrconfig.xml"
+mv schema-12.xml "${TOMCAT_DIR}/solr/collection1/conf/schema.xml"
 
 
 echo "Get tomcat configs from qa..."
@@ -98,7 +98,12 @@ rm -f mysql-connector-java-5.1.40.tar.gz
 rm -rf mysql-connector-java-5.1.40
 
 echo "Create local database"
-echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DB}" | /usr/local/mysql/bin/mysql "-u$MYSQL_USER" "-p$MYSQL_PASS"
+
+if [[ "$MYSQL_PASS" -ne "" ]]; then
+	echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DB}" | /usr/local/mysql/bin/mysql "-u$MYSQL_USER" "-p$MYSQL_PASS"
+else
+	echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DB}" | /usr/local/mysql/bin/mysql "-u$MYSQL_USER"
+fi
 
 git clone "${CODE}"
 
