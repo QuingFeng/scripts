@@ -29,8 +29,7 @@
 
       <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
 
-      <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
-      <Context docBase="/" path="" reloadable="true"/></Host>
+      <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true"></Host>
     </Engine>
   </Service>
 </Server>
