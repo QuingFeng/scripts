@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context allowLinking="true" reloadable="true">
+
+    <Environment name="PRODUCTION" override="false" type="java.lang.Boolean" value="false"/>
+
+    <Resources cacheMaxSize="102400" cacheObjectMaxSize="512"/>
+    
+    <Environment name="cms/tool/isAutoCreateUser" type="java.lang.String" value="true"/>
+    <Environment name="cms/db/isCachingDisabled" type="java.lang.String" value="false"/>
+
+    <!-- Database -->
+    <Environment name="dari/defaultDatabase" override="false" type="java.lang.String" value="project"/>
+    <Environment name="dari/database/project/class" override="false" type="java.lang.String" value="com.psddev.dari.db.AggregateDatabase"/>
+    <Environment name="dari/database/project/defaultDelegate" override="false" type="java.lang.String" value="sql"/>
+    <Environment name="dari/database/project/delegate/sql/class" override="false" type="java.lang.String" value="com.psddev.dari.db.SqlDatabase"/>
+    <Environment name="dari/database/project/delegate/sql/enableReplicationCache" override="false" type="java.lang.String" value="true"/>
+    <Environment name="dari/database/project/delegate/sql/enableFunnelCache" override="false" type="java.lang.String" value="false"/>
+
+    <!-- Database Resource Links, see server.xml for connection settings. -->
+    <ResourceLink global="dari/database/project/delegate/sql/dataSource" name="dari/database/project/delegate/sql/dataSource" type="javax.sql.DataSource"/>
+    <ResourceLink global="dari/database/project/delegate/sql/readDataSource" name="dari/database/project/delegate/sql/readDataSource" type="javax.sql.DataSource"/>
+
+
+
+    <!-- Solr -->
+    <Environment name="dari/database/project/delegate/solr/groups" override="false" type="java.lang.String" value="-* +cms.content.searchable "/>
+    <Environment name="dari/database/project/delegate/solr/class" override="false" type="java.lang.String" value="com.psddev.dari.db.SolrDatabase"/>
+    <Environment name="dari/database/project/delegate/solr/serverUrl" override="false" type="java.lang.String" value="http://localhost:8080/solr"/>
+    <Environment name="dari/database/project/delegate/solr/readServerUrl" override="false" type="java.lang.String" value="http://localhost:8080/solr"/>
+    <Environment name="dari/database/project/delegate/solr/version" override="false" type="java.lang.String" value="3.6.2"/>
+
+     <!-- Storage -->
+    <Environment name="dari/defaultStorage" type="java.lang.String" value="local"/>
+    <Environment name="dari/storage/local/class" type="java.lang.String" value="com.psddev.dari.util.LocalStorageItem"/>
+    <Environment name="dari/storage/local/baseUrl" type="java.lang.String" value="http://localhost:8080/storage"/>
+    <Environment name="dari/storage/local/rootPath" type="java.lang.String" value="{{tomcat_dir}}/webapps/storage"/>
+
+</Context>
