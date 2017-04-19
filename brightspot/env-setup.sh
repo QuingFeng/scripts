@@ -96,7 +96,7 @@ sed -i "" 's|dari/recalculationTaskHost".*internal"|dari/recalculationTaskHost" 
 # add dari/storage/local/rootPath value for bare bones install
 CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [ -z "$2" ]; then
-	sed -i "" 's|{{tomcat_dir}}|${CUR_DIR}/${TOMCAT_DIR}|g' context.xml
+	sed -i "" 's|{{tomcat_dir}}|'$CUR_DIR'/'$TOMCAT_DIR'|g' context.xml
 	mkdir "${CUR_DIR}/${TOMCAT_DIR}/webapps/storage"
 fi
 
